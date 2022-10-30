@@ -13,6 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -43,14 +44,14 @@ fun CatBreedDetailScreen(
     }
 
     catBreed?.let {
-        val linkColor = MaterialTheme.colors.primaryVariant
+        val textColor = MaterialTheme.colors.onBackground
         val descriptionString = stringResource(id = R.string.label_animal_more_info, it.description)
 
         val description = remember {
             buildAnnotatedString {
-                append(descriptionString)
+                withStyle(style = SpanStyle(textColor)) { append(descriptionString) }
                 pushStringAnnotation(tag = AppConstants.CAT_MORE_INFO_TAG, it.wikipediaUrl)
-                withStyle(style = SpanStyle(linkColor)) { append(" here") }
+                withStyle(style = SpanStyle(Color.Blue)) { append(" here") }
                 pop()
             }
         }
@@ -135,7 +136,10 @@ fun CatBreedDetailScreen(
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    ClickableText(text = description) { offset ->
+                    ClickableText(
+                        text = description,
+                        style = MaterialTheme.typography.body1
+                    ) { offset ->
                         description.getStringAnnotations(
                             tag = AppConstants.CAT_MORE_INFO_TAG,
                             start = offset,
