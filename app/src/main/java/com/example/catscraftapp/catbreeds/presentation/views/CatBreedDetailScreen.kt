@@ -25,8 +25,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.catscraftapp.R
 import com.example.catscraftapp.catbreeds.presentation.CatBreedsViewModel
-import com.example.catscraftapp.catbreeds.presentation.views.components.CustomImageView
-import com.example.catscraftapp.catbreeds.presentation.views.components.ItemPropertyView
+import com.example.catscraftapp.ui.components.CustomImageView
+import com.example.catscraftapp.ui.components.ItemPropertyView
 import com.example.catscraftapp.common.AppConstants
 
 @Composable

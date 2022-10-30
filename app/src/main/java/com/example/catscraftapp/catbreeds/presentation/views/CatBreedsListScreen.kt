@@ -17,7 +17,7 @@ import androidx.navigation.NavController
 import com.example.catscraftapp.R
 import com.example.catscraftapp.navigation.Screens
 import com.example.catscraftapp.catbreeds.presentation.state.CatBreedListState
-import com.example.catscraftapp.catbreeds.presentation.views.components.ListItemView
+import com.example.catscraftapp.ui.components.ListItemView
 
 @Composable
 fun CatBreedsListScreen(

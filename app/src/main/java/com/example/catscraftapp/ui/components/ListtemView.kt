@@ -1,4 +1,4 @@
-package com.example.catscraftapp.catbreeds.presentation.views.components
+package com.example.catscraftapp.ui.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
