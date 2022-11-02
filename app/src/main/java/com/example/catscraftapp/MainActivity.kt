@@ -13,7 +13,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.catscraftapp.catbreeds.presentation.CatBreedsViewModel
+import com.example.catscraftapp.catbreeds.presentation.CatsViewModel
 import com.example.catscraftapp.catbreeds.presentation.views.CatBreedDetailScreen
 import com.example.catscraftapp.catbreeds.presentation.views.CatBreedsListScreen
 import com.example.catscraftapp.common.AppConstants
@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    val catBreedsViewModel: CatBreedsViewModel = viewModel()
+                    val catsViewModel: CatsViewModel = viewModel()
                     val navController = rememberNavController()
 
                     NavHost(
@@ -42,10 +42,10 @@ class MainActivity : ComponentActivity() {
                         composable(Screens.CatBreedsListScreen.route) {
                             CatBreedsListScreen(
                                 modifier = Modifier.fillMaxSize(),
-                                catBreedListState = catBreedsViewModel.catBreedsListState,
+                                catsListState = catsViewModel.catBreedsListState,
                                 navController = navController,
                                 loadNextItems = {
-                                    catBreedsViewModel.loadNextItems()
+                                    catsViewModel.loadNextCatBreeds()
                                 }
                             )
                         }
@@ -54,7 +54,7 @@ class MainActivity : ComponentActivity() {
                             CatBreedDetailScreen(
                                 modifier = Modifier.fillMaxSize(),
                                 navController = navController,
-                                viewModel = catBreedsViewModel,
+                                viewModel = catsViewModel,
                                 openUrl = {
                                     launchUrlIntent(it)
                                 }

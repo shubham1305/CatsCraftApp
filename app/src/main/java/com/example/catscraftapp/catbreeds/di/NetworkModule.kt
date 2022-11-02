@@ -1,6 +1,6 @@
 package com.example.catscraftapp.catbreeds.di
 
-import com.example.catscraftapp.catbreeds.api.CatBreedsRequestAPI
+import com.example.catscraftapp.catbreeds.data.remote.api.CatsRequestAPI
 import com.example.catscraftapp.common.AppConstants
 import dagger.Module
 import dagger.Provides
@@ -25,7 +25,7 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun providesCatBreedsRequestApi(retrofit: Retrofit): CatBreedsRequestAPI {
-        return retrofit.create(CatBreedsRequestAPI::class.java)
+    fun providesCatsRequestApi(retrofit: Retrofit): CatsRequestAPI {
+        return retrofit.create(CatsRequestAPI::class.java)
     }
 }

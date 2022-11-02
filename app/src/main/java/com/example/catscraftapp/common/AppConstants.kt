@@ -2,8 +2,15 @@ package com.example.catscraftapp.common
 
 object AppConstants {
 
-    // URLS
+    // Base URLS
     const val BASE_URL = "https://api.thecatapi.com/"
+
+    // URL endpoints
+    const val ENDPOINT_GET_CAT_BREEDS = "v1/breeds/"
+
+    // Query Params
+    const val PARAM_PAGE_NUMBER = "page"
+    const val PARAM_PAGE_LIMIT = "limit"
 
     // IDs and Tags
     const val CAT_BREED_ID = "catBreedId"

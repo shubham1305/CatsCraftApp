@@ -16,23 +16,23 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.catscraftapp.R
 import com.example.catscraftapp.navigation.Screens
-import com.example.catscraftapp.catbreeds.presentation.state.CatBreedListState
+import com.example.catscraftapp.catbreeds.presentation.state.CatsListState
 import com.example.catscraftapp.ui.components.ListItemView
 
 @Composable
 fun CatBreedsListScreen(
     modifier: Modifier,
-    catBreedListState: CatBreedListState,
+    catsListState: CatsListState,
     navController: NavController,
     loadNextItems: () -> Unit
 ) {
     Box(modifier = modifier.fillMaxSize()) {
-        if (catBreedListState.error != null) {
+        if (catsListState.breedList.isEmpty() && catsListState.error != null) {
             Text(
                 modifier = Modifier
                     .padding(16.dp)
                     .align(Alignment.Center),
-                text = catBreedListState.error,
+                text = catsListState.error,
                 color = MaterialTheme.colors.error,
                 textAlign = TextAlign.Center
             )
@@ -43,7 +43,7 @@ fun CatBreedsListScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                if (catBreedListState.breedList.isNotEmpty()) {
+                if (catsListState.breedList.isNotEmpty()) {
                     item {
                         Text(
                             text = stringResource(R.string.cat_breeds_screen_title),
@@ -53,13 +53,13 @@ fun CatBreedsListScreen(
                         )
                     }
 
-                    itemsIndexed(catBreedListState.breedList) { idx, item ->
-                        if (idx >= catBreedListState.breedList.size - 1 && !catBreedListState.endReached && !catBreedListState.isLoading) {
+                    itemsIndexed(catsListState.breedList) { idx, item ->
+                        if (idx >= catsListState.breedList.size - 1 && !catsListState.endReached && !catsListState.isLoading) {
                             loadNextItems()
                         }
                         ListItemView(
                             modifier = modifier.fillMaxWidth(),
-                            imageUrl = item.image?.url,
+                            imageUrl = item.imageUrl,
                             title = item.name,
                             description = item.description,
                             onClick = {
@@ -67,9 +67,22 @@ fun CatBreedsListScreen(
                             }
                         )
                     }
+
+                    if (catsListState.error != null) {
+                        item {
+                            Text(
+                                modifier = Modifier
+                                    .padding(16.dp)
+                                    .align(Alignment.Center),
+                                text = catsListState.error,
+                                color = MaterialTheme.colors.error,
+                                textAlign = TextAlign.Center
+                            )
+                        }
+                    }
                 }
 
-                if (catBreedListState.isLoading) {
+                if (catsListState.isLoading) {
                     item {
                         Row(
                             modifier = Modifier

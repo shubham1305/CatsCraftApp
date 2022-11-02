@@ -1,19 +1,16 @@
 package com.example.catscraftapp.catbreeds.domain.model
 
+import androidx.annotation.Keep
 
-import com.google.gson.annotations.SerializedName
-
+@Keep
 data class CatBreed(
     val id: String,
     val description: String,
-    val image: CatImage?,
     val name: String,
     val origin: String,
-    val weight: CatWeight,
-    @SerializedName("life_span")
     val lifeSpan: String,
-    @SerializedName("alt_names")
     val altNames: String?,
-    @SerializedName("wikipedia_url")
-    val wikipediaUrl: String
+    val wikipediaUrl: String?,
+    val imageUrl: String?,
+    val weight: String
 )

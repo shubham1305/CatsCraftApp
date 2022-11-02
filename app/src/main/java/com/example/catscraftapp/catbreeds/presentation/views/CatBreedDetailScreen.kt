@@ -3,38 +3,34 @@ package com.example.catscraftapp.catbreeds.presentation.views
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.catscraftapp.R
-import com.example.catscraftapp.catbreeds.presentation.CatBreedsViewModel
+import com.example.catscraftapp.catbreeds.presentation.CatsViewModel
+import com.example.catscraftapp.common.AppConstants
 import com.example.catscraftapp.ui.components.CustomImageView
 import com.example.catscraftapp.ui.components.ItemPropertyView
-import com.example.catscraftapp.common.AppConstants
 
 @Composable
 fun CatBreedDetailScreen(
     modifier: Modifier,
     navController: NavController,
-    viewModel: CatBreedsViewModel,
+    viewModel: CatsViewModel,
     openUrl: (String) -> Unit
 ) {
     val breedId =
@@ -44,18 +40,6 @@ fun CatBreedDetailScreen(
     }
 
     catBreed?.let {
-        val textColor = MaterialTheme.colors.onBackground
-        val descriptionString = stringResource(id = R.string.label_animal_more_info, it.description)
-
-        val description = remember {
-            buildAnnotatedString {
-                withStyle(style = SpanStyle(textColor)) { append(descriptionString) }
-                pushStringAnnotation(tag = AppConstants.CAT_MORE_INFO_TAG, it.wikipediaUrl)
-                withStyle(style = SpanStyle(Color.Blue)) { append(" here") }
-                pop()
-            }
-        }
-
         Column(
             modifier = modifier
                 .padding(horizontal = 20.dp)
@@ -67,7 +51,7 @@ fun CatBreedDetailScreen(
                     .fillMaxWidth()
                     .height(250.dp)
                     .clip(RoundedCornerShape(10.dp)),
-                imageUrl = it.image?.url,
+                imageUrl = it.imageUrl,
                 scale = ContentScale.Crop
             )
 
@@ -104,7 +88,7 @@ fun CatBreedDetailScreen(
                     ItemPropertyView(
                         modifier = Modifier.weight(1f),
                         name = stringResource(R.string.label_animal_weight),
-                        value = stringResource(id = R.string.value_animal_weight, it.weight.metric)
+                        value = stringResource(id = R.string.value_animal_weight, it.weight)
                     )
                     ItemPropertyView(
                         modifier = Modifier.weight(1f),
@@ -136,18 +120,27 @@ fun CatBreedDetailScreen(
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    ClickableText(
-                        text = description,
-                        style = MaterialTheme.typography.body1
-                    ) { offset ->
-                        description.getStringAnnotations(
-                            tag = AppConstants.CAT_MORE_INFO_TAG,
-                            start = offset,
-                            end = offset
-                        ).firstOrNull()?.let {
-                            openUrl(it.item)
-                        }
-                    }
+                    Text(
+                        text = it.description,
+                        style = MaterialTheme.typography.body1.copy(
+                            fontFamily = FontFamily.Serif,
+                            fontWeight = FontWeight.Bold
+                        )
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            it.wikipediaUrl?.let { url ->
+                Spacer(modifier = Modifier.height(8.dp))
+
+                TextButton(
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                    onClick = { openUrl(url) },
+                    contentPadding = PaddingValues(8.dp)
+                ) {
+                    Text(text = stringResource(id = R.string.label_animal_more_info))
                 }
             }
 

@@ -28,7 +28,9 @@ class ListFlowPaginator<Key, Item>(
             isMakingRequest = true
             onRequest(currentKey).flowOn(Dispatchers.IO).onEach { result ->
                 when (result) {
-                    is NetworkResponse.Loading -> onLoadUpdated(true)
+                    is NetworkResponse.Loading -> {
+                        onLoadUpdated(true)
+                    }
                     is NetworkResponse.Success -> {
                         isMakingRequest = false
                         currentKey = getNextKey(result.data!!)

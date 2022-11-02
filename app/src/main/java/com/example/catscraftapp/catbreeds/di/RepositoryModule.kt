@@ -1,8 +1,8 @@
 package com.example.catscraftapp.catbreeds.di
 
-import com.example.catscraftapp.catbreeds.api.CatBreedsRequestAPI
-import com.example.catscraftapp.catbreeds.data.repository.CatBreedsRepositoryImpl
-import com.example.catscraftapp.catbreeds.domain.repository.CatBreedsRepository
+import com.example.catscraftapp.catbreeds.data.remote.api.CatsRequestAPI
+import com.example.catscraftapp.catbreeds.data.repository.CatsRepositoryImpl
+import com.example.catscraftapp.catbreeds.domain.repository.CatsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,7 +15,7 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun providesCatBreedsRepository(
-        catBreedsRequestAPI: CatBreedsRequestAPI
-    ): CatBreedsRepository = CatBreedsRepositoryImpl(catBreedsRequestAPI)
+    fun providesCatsRepository(
+        catsRequestAPI: CatsRequestAPI
+    ): CatsRepository = CatsRepositoryImpl(catsRequestAPI)
 }

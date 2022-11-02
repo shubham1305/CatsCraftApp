@@ -4,9 +4,9 @@
     <string name="empty_breed_list_msg">No cat breeds to show</string>
     <string name="label_animal_weight">Weight</string>
     <string name="label_animal_lifespan">Lifespan</string>
-    <string name="label_animal_description">Description</string>
+    <string name="label_animal_description">Description:</string>
     <string name="label_animal_origin">Origin</string>
     <string name="value_animal_weight">%s\nkgs</string>
     <string name="value_animal_lifespan">%s\nyrs</string>
-    <string name="label_animal_more_info">%s For more information on this breed click </string>
+    <string name="label_animal_more_info">For more info click here</string>
 </resources>

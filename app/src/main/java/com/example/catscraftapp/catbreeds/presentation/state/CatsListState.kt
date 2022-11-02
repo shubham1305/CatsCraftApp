@@ -1,8 +1,10 @@
 package com.example.catscraftapp.catbreeds.presentation.state
 
+import androidx.annotation.Keep
 import com.example.catscraftapp.catbreeds.domain.model.CatBreed
 
-data class CatBreedListState(
+@Keep
+data class CatsListState(
     val isLoading: Boolean = false,
     val breedList: List<CatBreed> = emptyList(),
     val error: String? = null,
