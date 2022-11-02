@@ -8,6 +8,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
@@ -50,15 +51,25 @@ class MainActivity : ComponentActivity() {
                             )
                         }
 
-                        composable(Screens.CatBreedDetailScreen.route + "/{${AppConstants.CAT_BREED_ID}}") {
-                            CatBreedDetailScreen(
-                                modifier = Modifier.fillMaxSize(),
-                                navController = navController,
-                                viewModel = catsViewModel,
-                                openUrl = {
-                                    launchUrlIntent(it)
+                        composable(Screens.CatBreedDetailScreen.route + "/{${AppConstants.CAT_BREED_ID}}") { navBackStackEntry ->
+                            val catBreed = remember {
+                                catsViewModel.catBreedsListState.breedList.firstOrNull {
+                                    it.id == navBackStackEntry.arguments?.get(
+                                        AppConstants.CAT_BREED_ID
+                                    ).toString()
                                 }
-                            )
+                            }
+
+                            catBreed?.let {
+                                CatBreedDetailScreen(
+                                    modifier = Modifier.fillMaxSize(),
+                                    catBreed = it,
+                                    openUrl = { url ->
+                                        launchUrlIntent(url)
+                                    }
+                                )
+                            }
+
                         }
                     }
                 }

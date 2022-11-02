@@ -9,14 +9,16 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.catscraftapp.R
-import com.example.catscraftapp.navigation.Screens
 import com.example.catscraftapp.catbreeds.presentation.state.CatsListState
+import com.example.catscraftapp.common.AppConstants
+import com.example.catscraftapp.navigation.Screens
 import com.example.catscraftapp.ui.components.ListItemView
 
 @Composable
@@ -31,7 +33,8 @@ fun CatBreedsListScreen(
             Text(
                 modifier = Modifier
                     .padding(16.dp)
-                    .align(Alignment.Center),
+                    .align(Alignment.Center)
+                    .testTag(AppConstants.LIST_SCREEN_ERROR_VIEW_TEST_TAG_1),
                 text = catsListState.error,
                 color = MaterialTheme.colors.error,
                 textAlign = TextAlign.Center
@@ -58,7 +61,7 @@ fun CatBreedsListScreen(
                             loadNextItems()
                         }
                         ListItemView(
-                            modifier = modifier.fillMaxWidth(),
+                            modifier = modifier.fillMaxWidth().testTag("${AppConstants.LIST_SCREEN_ITEM_VIEW_TEST_TAG}$idx"),
                             imageUrl = item.imageUrl,
                             title = item.name,
                             description = item.description,
@@ -73,7 +76,8 @@ fun CatBreedsListScreen(
                             Text(
                                 modifier = Modifier
                                     .padding(16.dp)
-                                    .align(Alignment.Center),
+                                    .align(Alignment.Center)
+                                    .testTag(AppConstants.LIST_SCREEN_ERROR_VIEW_TEST_TAG_2),
                                 text = catsListState.error,
                                 color = MaterialTheme.colors.error,
                                 textAlign = TextAlign.Center
@@ -87,7 +91,8 @@ fun CatBreedsListScreen(
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(8.dp),
+                                .padding(8.dp)
+                                .testTag(AppConstants.LIST_SCREEN_LOADING_VIEW_TEST_TAG),
                             horizontalArrangement = Arrangement.Center
                         ) {
                             CircularProgressIndicator()
